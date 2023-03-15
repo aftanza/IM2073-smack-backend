@@ -79,7 +79,7 @@ public class QueryListings extends HttpServlet {
 
             // format: ?category=driedFruit+chips+crunchies+seeds+pretzel
 
-            String[] ranges = request.getParameter("category").split("\\+");
+            String[] ranges = request.getParameter("category").split(" ");
             // for(String i : ranges){
             //    out.print(i + " ");
             // }
@@ -146,7 +146,7 @@ public class QueryListings extends HttpServlet {
 
             // format: ?priceRange=toFive+fiveToTen+tenToFifteen+moreThanFifteen
 
-            String[] ranges = request.getParameter("priceRange").split("\\+");
+            String[] ranges = request.getParameter("priceRange").split(" ");
             // for(String i : ranges){
             //    out.print(i + " ");
             // }
@@ -202,6 +202,8 @@ public class QueryListings extends HttpServlet {
 
          ResultSet rset = stmt.executeQuery(sqlStr);  // Send the query to the server
          // out.println(sqlStr);
+         // out.println("Statement: " + sqlStr);
+
 
          boolean isFirstObject = true;
 
@@ -226,13 +228,14 @@ public class QueryListings extends HttpServlet {
                isFirstObject = false;
             }
          }
+         out.println("]");
 
 
-      } catch(Exception ex) {
-         out.println("Error: " + ex.getMessage());
+      } catch(Exception ex) { 
+         out.println("Error: " + ex.getMessage() + "\n");
       }  // Step 5: Close conn and stmt - Done automatically by try-with-resources (JDK 7)
 
-         out.println("]");
+         
 
       out.close();
    }
@@ -290,7 +293,7 @@ public class QueryListings extends HttpServlet {
          int count = stmt.executeUpdate(sqlStr);  // Send the query to the server
 
       } catch(Exception ex) {
-         out.println("Error: " + ex.getMessage());
+         out.println("Error: " + ex.getMessage() + "\n");
       }  // Step 5: Close conn and stmt - Done automatically by try-with-resources (JDK 7)
 
       out.close();
